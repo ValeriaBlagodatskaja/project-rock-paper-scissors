@@ -59,7 +59,7 @@ while (i < 5) {
 if (userWon === computerWon) {
   console.log("Its a draw!");
 } else if (computerWon > userWon) {
-  console.log("Computer won the most games :(");
+  console.log("Computer won the most games!");
 } else if (userWon > computerWon) {
   console.log("You won the most games!");
 }
