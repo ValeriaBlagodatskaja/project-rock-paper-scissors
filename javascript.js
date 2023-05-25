@@ -10,7 +10,7 @@ function playRound(playerSelection, computerSelection) {
   console.log("computer:", computerSelection);
 
   const winningConditions = {
-    rock: "scissoasdadadadrs",
+    rock: "scissors",
     paper: "rock",
     scissors: "paper",
   };
