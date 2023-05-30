@@ -1,3 +1,42 @@
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+
+const resultDiv = document.getElementById("result");
+const userDiv = document.getElementById("user");
+const computerDiv = document.getElementById("computer");
+
+function resetValues() {
+  userDiv.innerText = 0;
+  computerDiv.innerText = 0;
+}
+
+function playRound(playerSelection, computerSelection) {
+  const winningConditions = {
+    rock: "scissors",
+    paper: "rock",
+    scissors: "paper",
+  };
+
+  if (playerSelection === computerSelection) {
+    resultDiv.innerText = "Draw!";
+  } else if (winningConditions[playerSelection] === computerSelection) {
+    resultDiv.innerText = `You win! ${playerSelection} beats ${computerSelection}`;
+    userDiv.innerText = Number(userDiv.innerText) + 1;
+  } else {
+    resultDiv.innerText = `You lose! ${computerSelection} beats ${playerSelection}`;
+    computerDiv.innerText = Number(computerDiv.innerText) + 1;
+  }
+
+  if (userDiv.innerText === "5") {
+    resultDiv.innerText = "You won the most games!";
+    resetValues();
+  } else if (computerDiv.innerText === "5") {
+    resultDiv.innerText = "Computer won the most games!";
+    resetValues();
+  }
+}
+
 function getComputerChoice() {
   const strings = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * strings.length);
@@ -5,61 +44,14 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function playRound(playerSelection, computerSelection) {
-  console.log("player:", playerSelection);
-  console.log("computer:", computerSelection);
+rock.addEventListener("click", () => {
+  playRound("rock", getComputerChoice());
+});
 
-  const winningConditions = {
-    rock: "scissors",
-    paper: "rock",
-    scissors: "paper",
-  };
-  let result;
+paper.addEventListener("click", () => {
+  playRound("paper", getComputerChoice());
+});
 
-  if (playerSelection === computerSelection) {
-    console.log("Draw!");
-    result = "draw";
-  } else if (winningConditions[playerSelection] === computerSelection) {
-    console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-    result = "user";
-  } else {
-    console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-    result = "computer";
-  }
-
-  return result;
-}
-
-let i = 0;
-let userWon = 0;
-let computerWon = 0;
-
-while (i < 5) {
-  console.log("Turn", i + 1);
-
-  const computerChoice = getComputerChoice();
-  let playerSelection = "";
-
-  while (playerSelection === "") {
-    playerSelection = prompt(
-      "Enter your selection (rock, paper, or scissors):"
-    ).toLowerCase();
-  }
-
-  const result = playRound(playerSelection, computerChoice);
-  if (result === "user") {
-    userWon = userWon + 1;
-  } else if (result === "computer") {
-    computerWon = computerWon + 1;
-  }
-
-  i = i + 1;
-}
-
-if (userWon === computerWon) {
-  console.log("Its a draw!");
-} else if (computerWon > userWon) {
-  console.log("Computer won the most games!");
-} else if (userWon > computerWon) {
-  console.log("You won the most games!");
-}
+scissors.addEventListener("click", () => {
+  playRound("scissors", getComputerChoice());
+});
